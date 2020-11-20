@@ -1,0 +1,30 @@
+{
+    "name": "MS Xray",
+    "version": "1.0.0",
+    "description": "Chrome extension to help debug Memberstack websites.",
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    // "content_scripts": [
+    //     {
+    //         "js": ["content.js"],
+    //         "matches": ["<all_urls>"]
+    //     }
+    // ],
+    "permissions": [
+        // "bookmarks"
+        // "tabs"
+        "activeTab"
+    ],
+    "icons": {
+        "16": "memberstack-icon.png",
+        "48": "memberstack-icon.png",
+        "128": "memberstack-icon.png"
+    },
+    "browser_action": {
+        "default_title": "MS Xray",
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 2
+}

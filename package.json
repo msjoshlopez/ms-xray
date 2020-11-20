@@ -1,0 +1,23 @@
+{
+  "name": "msxray",
+  "version": "1.0.0",
+  "description": "chrome extention to help degub Memberstack problems.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msjoshlopez/ms-xray.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/msjoshlopez/ms-xray/issues"
+  },
+  "homepage": "https://github.com/msjoshlopez/ms-xray#readme",
+  "dependencies": {
+    "@types/chrome": "^0.0.126",
+    "types": "^0.1.1"
+  }
+}
