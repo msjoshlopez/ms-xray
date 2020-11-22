@@ -82,11 +82,11 @@ function msScriptCheck() {
 }
 
 function msHighlightLinks() {
-    console.log("highlight all links on page");
+    console.log("todo: highlight all links on page");
 }
 
 function msHighlightAttributes() {
-    console.log("highlight all attributes on page");
+    console.log("todo: highlight all attributes on page");
 }
 
 function msHighlightForms() {
@@ -113,7 +113,6 @@ function messageReceived(message, sender, sendResponse) {
         console.log("highlight all ms attributes");
         msHighlightAttributes();
     } else if (message.highlightForms) {
-        // TODO: hightlight all the memberstack form elements on the page
         console.log("highlight all ms forms");
         msHighlightForms();
     }
