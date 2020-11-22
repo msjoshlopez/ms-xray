@@ -1,5 +1,7 @@
 console.log("MS Xray content.js has loaded");
 
+let msFormAttributes
+
 function msScriptCheck() {
     const msScriptURL = "https://api.memberstack.io/static/memberstack.js";
     const pageScripts = document.getElementsByTagName("script");
@@ -21,13 +23,13 @@ function msScriptCheck() {
     }
 
     if (msScripts.length > 0) {
-        for (msScript of msScripts) {
+        for (const msScript of msScripts) {
             // get the version of memberstack script from the array of scripts on the page
-						msScript = msScript.split("?");
-						if (msScript.length === 1) {
+						const split = msScript.split("?");
+						if (split.length === 1) {
 							msScriptVersions.push("No platform specified")
 						} else {
-							msScriptVersions.push(msScript[msScript.length - 1]);
+							msScriptVersions.push(split[split.length - 1]);
 							// remove all duplicate versions from the array
 							msScriptVersions = [...new Set(msScriptVersions)];
 						}
@@ -36,30 +38,30 @@ function msScriptCheck() {
 
     // get all the ms attributes on page and add them to msAttributesFound to show count in popup
     const msMemberAttributes = document.querySelectorAll('[data-ms-member]');
-    for (msMemberAttribute of msMemberAttributes) {
+    for (const msMemberAttribute of msMemberAttributes) {
         msAttributesFound.push(msMemberAttribute);
         console.log("msAttributesFound " + msMemberAttribute);
     };
 
     const msContentAttributes = document.querySelectorAll('[data-ms-content]');
-    for (msContentAttribute of msContentAttributes) {
+    for (const msContentAttribute of msContentAttributes) {
         msAttributesFound.push(msContentAttribute);
         console.log("msAttributesFound " + msContentAttribute);
     };
 
     const msMembershipAttributes = document.querySelectorAll('[data-ms-membership]');
-    for (msMembershipAttribute of msMembershipAttributes) {
+    for (const msMembershipAttribute of msMembershipAttributes) {
         msAttributesFound.push(msMembershipAttribute);
         console.log("msAttributesFound " + msMembershipAttribute);
     };
 
     // get all the ms forms on page
-    const msFormAttributes = document.querySelectorAll('[data-ms-form]');
-    for (msFormAttribute of msFormAttributes) {
+    msFormAttributes = document.querySelectorAll('[data-ms-form]');
+    for (const msFormAttribute of msFormAttributes) {
         msAttributesFound.push(msFormAttribute);
         console.log("msAttributesFound " + msFormAttribute);
         msFormsFound.push(msFormAttribute);
-        console.log("msFormsFound " + msFormAttribute);
+				console.log("msFormsFound " + msFormAttribute);
     };
 
     // get all the ms links on page
@@ -103,6 +105,13 @@ function messageReceived(message, sender, sendResponse) {
         console.log("highlight all ms attributes");
     } else if (message.highlightForms) {
         // TODO: hightlight all the memberstack form elements on the page
-        console.log("highlight all ms forms");
+				console.log("highlight all ms forms");
+				highlightForms()
     }
+}
+
+function highlightForms() {
+	for (const msFormAttribute of msFormAttributes) {
+		msFormAttribute.style.border = "thick solid #FDFF47";
+	};
 }
