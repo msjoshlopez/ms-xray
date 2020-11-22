@@ -1,26 +1,274 @@
 <html>
-    <head>
-        <style>
-            html {
-                min-width: 300px;
-            }
-            .--error-text {
-                color: red;
-            }
-        </style>
 
-        <script src="popup.js" type="text/javascript"></script>
-    </head>
-    <body>
-        <div class="ms-popup">
-            <h1>MS Xray</h1>
-            <p>MS scripts found: <span id="msScriptFound">0</span></p>
+<head>
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="ms-popup">
+        <h1>MS Xray</h1>
+        <!-- Tab links -->
+        <div class="tab">
+            <button id="tab1" class="tablinks">Page Info</button>
+            <button id="tab2" class="tablinks">Links Reference</button>
+            <button id="tab3" class="tablinks">Attributes Reference</button>
+        </div>
+        <!-- Tab content -->
+        <div id="tabContent1" class="tabcontent">
+            <h2>Current Page Info</h2>
+            <p>MS scripts found: <span id="msScriptsFound">0</span></p>
             <p>Script version: <span id="msScriptVersion">none</span></p>
             <p>MS ID: <span id="msScriptID">none</span></p>
             <hr />
             <p>MS data attributes found: <a id="highlightAttributes" href="#"><span id="msDataAttributesFound">0</span></a></p>
             <p>MS links found: <a id="highlightLinks" href="#"><span id="msLinksFound">0</span></a></p>
             <p>MS forms found: <a id="highlightForms" href="#"><span id="msFormsFound">0</span></a></p>
+            <hr />
+            <a class="button" id="scanPage" href="#">Scan Page</a>
         </div>
-    </body>
+
+        <div id="tabContent2" class="tabcontent">
+            <h2>Memberstack Links</h2>
+            <h4>Modals & Forms</h4>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Link</th>
+                        <th>Learn</th>
+                    </tr>
+                    <tr>
+                        <td>Launch the signup modal.</td>
+                        <td>#/ms/signup/membership-id</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3936748-signup-and-login-modals" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Launch the login modal.</td>
+                        <td>#/ms/login</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3936748-signup-and-login-modals" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Launch the password reset modal.</td>
+                        <td>#/ms/password-reset</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Launch the member profile modal.</td>
+                        <td>#/ms/profile</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3860248-the-member-profile-modal" target="_blank">&#128279;</a></td>
+                    </tr>
+                </table>
+            </div>
+
+            <h4>Members-only content</h4>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Link</th>
+                        <th>Learn</th>
+                    </tr>
+                    <tr>
+                        <td>Hide links for members-only content</td>
+                        <td>#/ms/content/content-id</td>
+                        <td><a href="https://help.memberstack.com/en/articles/4019181-squarespace-nav-links-folders" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Hide links from active members</td>
+                        <td>#/ms/content/!content-id</td>
+                        <td><a href="https://help.memberstack.com/en/articles/4019181-squarespace-nav-links-folders" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Hide links from logged in members</td>
+                        <td>#/ms/content/!members</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3956132-hide-links-from-members" target="_blank">&#128279;</a></td>
+                    </tr>
+                </table>
+            </div>
+            <h4>Page links & actions</h4>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Link</th>
+                        <th>Learn</th>
+                    </tr>
+                    <tr>
+                        <td>Logout link.</td>
+                        <td>#/ms/logout</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3881989-logout-links" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Redirect a user to the "page after login" for their particular membership.</td>
+                        <td>#/ms/membership/redirect</td>
+                        <td><a href="https://help.memberstack.com/en/articles/4207901-membership-redirects" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Dynamic "dashboard" links for members with a member-specific page.</td>
+                        <td>#/ms/member-page/default</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3925216-member-specific-pages" target="_blank">&#128279;</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div id="tabContent3" class="tabcontent">
+            <h2>Memberstack Attributes</h2>
+            <h4>Member data</h4>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Attribute</th>
+                        <th>HTML Tags</th>
+                        <th>Learn</th>
+                    </tr>
+                    <tr>
+                        <td>Display member data.</td>
+                        <td>data-ms-member="field-id"</td>
+                        <td>Any text tag &#8594; &lt;div&gt; &lt;span&gt; &lt;h3&gt; etc.</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3839484-personalize-text-with-members-data" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Populate form fields with member data.</td>
+                        <td>data-ms-member="field-id"</td>
+                        <td>&lt;input&gt;</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3865692-pre-populate-forms-with-member-data" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Display an image associated with a member.</td>
+                        <td>data-ms-member="field-id"</td>
+                        <td>&lt;img&gt;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Display / access a member's email.</td>
+                        <td>data-ms-member="email"</td>
+                        <td>&lt;div&gt; &lt;span&gt; &lt;input&gt; etc.</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Access a member's unique ID.</td>
+                        <td>data-ms-member="id"</td>
+                        <td>&lt;div&gt; &lt;span&gt; &lt;input&gt; etc.</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Display / access a member's signup date.</td>
+                        <td>data-ms-member="signup-date"</td>
+                        <td>&lt;img&gt;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Display / access a member's current membership price.</td>
+                        <td>data-ms-member="membership.price"</td>
+                        <td>Any text tag &#8594; &lt;div&gt; &lt;span&gt; &lt;h3&gt; etc.</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Display / access a member's current membership name.</td>
+                        <td>data-ms-member="membership.name"</td>
+                        <td>Any text tag &#8594; &lt;div&gt; &lt;span&gt; &lt;h3&gt; etc.</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <h4>Members-only content</h4>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Attribute</th>
+                        <th>HTML Tags</th>
+                        <th>Learn</th>
+                    </tr>
+                    <tr>
+                        <td>Tag page content as members-only content.</td>
+                        <td>data-ms-content="content-id"</td>
+                        <td>Any tag &#8594; All &lt;div&gt; &lt;span&gt; &lt;a&gt; etc.</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3887783-hide-content-on-a-page-for-members-and-non-members" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Opposite of members-only content.</td>
+                        <td>data-ms-content="!content-id"</td>
+                        <td>Any tag &#8594; &lt;div&gt; &lt;span&gt; &lt;a&gt; etc.</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3887783-hide-content-on-a-page-for-members-and-non-members" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>This content is visible when a member logs in.</td>
+                        <td>data-ms-content="members"</td>
+                        <td>Any tag &#8594; &lt;div&gt; &lt;span&gt; &lt;a&gt; etc.</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>This content is hidden when a member logs in.</td>
+                        <td>data-ms-content="!members"</td>
+                        <td>Any tag &#8594; &lt;div&gt; &lt;span&gt; &lt;a&gt; etc.</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <h4>Memberships</h4>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Attribute</th>
+                        <th>HTML Tags</th>
+                        <th>Learn</th>
+                    </tr>
+                    <tr>
+                        <td>Select a membership before signup.</td>
+                        <td>data-ms-membership="membership-id"</td>
+                        <td>&lt;a&gt; &lt;div&gt; &lt;input&gt; etc.</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3931194-data-membership-id" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Launch the upgrade/downgrade modal.</td>
+                        <td>data-ms-membership="membership-id"</td>
+                        <td>&lt;a&gt; &lt;div&gt; &lt;input&gt; etc.</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3896580-upgrade-and-downgrade-buttons" target="_blank">&#128279;</a></td>
+                    </tr>
+                </table>
+            </div>
+            <h4>Custom signup, login, and profile forms</h4>
+            <div class="table-wrapper">
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Attribute</th>
+                        <th>HTML Tags</th>
+                        <th>Learn</th>
+                    </tr>
+                    <tr>
+                        <td>Display & update member data.</td>
+                        <td>data-ms-member="field-id"</td>
+                        <td>&lt;input&gt;</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3952420-custom-fields-ids" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Turn any form into a signup form.</td>
+                        <td>data-ms-form="signup"</td>
+                        <td>&lt;form&gt;</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3936813-custom-signup-forms" target="_blank">&#128279;</a></td>
+                    </tr>
+                    <tr>
+                        <td>Turn any form into a login form.</td>
+                        <td>data-ms-form="login"</td>
+                        <td>&lt;form&gt;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Turn any form into a profile update form.</td>
+                        <td>data-ms-form="profile"</td>
+                        <td>&lt;form&gt;</td>
+                        <td><a href="https://help.memberstack.com/en/articles/3992134-custom-profile-multi-step-signup-forms-in-webflow" target="_blank">&#128279;</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

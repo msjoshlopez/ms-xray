@@ -1,74 +1,137 @@
-window.onload = function() {
-    let msScriptFoundElmnt = document.getElementById("msScriptFound");
+window.onload = function () {
+    let tab1 = document.getElementById("tab1");
+    let tab2 = document.getElementById("tab2");
+    let tab3 = document.getElementById("tab3");
+
+    // opens tab inside the popup not a tab in the browser
+    function openTab(evt, tabContentID) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabContentID).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    tab1.onclick = function () {
+        openTab(event, 'tabContent1')
+    };
+    tab2.onclick = function () {
+        openTab(event, 'tabContent2')
+    };
+    tab3.onclick = function () {
+        openTab(event, 'tabContent3')
+    };
+    tab1.click();
+
+    let msScriptsFoundElmnt = document.getElementById("msScriptsFound");
     let msScriptVersionElmnt = document.getElementById("msScriptVersion");
     let msScriptIDElmnt = document.getElementById("msScriptID");
+    let msDataAttributesFoundElmnt = document.getElementById("msDataAttributesFound");
+    let msLinksFoundElmnt = document.getElementById("msLinksFound");
+    let msFormsFoundElmnt = document.getElementById("msFormsFound");
 
     let highlightAttributesElmnt = document.getElementById("highlightAttributes");
     let highlightLinksElmnt = document.getElementById("highlightLinks");
     let highlightFormsElmnt = document.getElementById("highlightForms");
+    let scanPageElmnt = document.getElementById("scanPage");
 
+    scanPageElmnt.onclick = msScanPage;
     highlightAttributesElmnt.onclick = msHighlightAttributes;
     highlightLinksElmnt.onclick = msHighlightLinks;
     highlightFormsElmnt.onclick = msHighlightForms;
-
 
     let queryParams = {
         active: true,
         currentWindow: true
     };
 
-// messages to send content.js
-// highlightLinks
-// highlightAttributes
-// highlightForms
+    // messages to send content.js
+    // scanPage
+    // highlightLinks
+    // highlightAttributes
+    // highlightForms
 
-    function msHighlightAttributes() {
-        chrome.tabs.query(queryParams, getTabs);
-
+    function msScanPage() {
         function getTabs(tabs) {
-            let message = { highlightAttributes: true};
+            let message = {
+                scanPage: true
+            };
             chrome.tabs.sendMessage(tabs[0].id, message);
         }
+        chrome.tabs.query(queryParams, getTabs);
+    };
+
+    function msHighlightAttributes() {
+        function getTabs(tabs) {
+            let message = {
+                highlightAttributes: true
+            };
+            chrome.tabs.sendMessage(tabs[0].id, message);
+        }
+        chrome.tabs.query(queryParams, getTabs);
     };
 
     function msHighlightLinks() {
-        chrome.tabs.query(queryParams, getTabs);
-
         function getTabs(tabs) {
-            let message = { highlightLinks: true};
+            let message = {
+                highlightLinks: true
+            };
             chrome.tabs.sendMessage(tabs[0].id, message);
         }
+        chrome.tabs.query(queryParams, getTabs);
     };
 
     function msHighlightForms() {
-        chrome.tabs.query(queryParams, getTabs);
-
         function getTabs(tabs) {
-            let message = { highlightForms: true};
+            let message = {
+                highlightForms: true
+            };
             chrome.tabs.sendMessage(tabs[0].id, message);
         }
+        chrome.tabs.query(queryParams, getTabs);
     };
-
-    chrome.runtime.onMessage.addListener(receiver);
 
     function receiver(message, sender, sendResponse) {
         console.log(message);
-        if (message.msScriptFound) {
-            console.log("yes I found Memberstack script");
-            msScriptFoundElmnt.innerHTML = message.msScripts;
-            if (message.msScripts > 1) {
-                msScriptFoundElmnt.classList.add("--error-text");
-            }
-            msScriptVersionElmnt.innerHTML = message.msScriptVersions;
-            msScriptIDElmnt.innerHTML = message.msIDs;
-            // chrome.browserAction.setBadgeText({text: 'ON'});
-            // chrome.browserAction.setBadgeBackgroundColor({color: '#4688F1'});
-        } else {
-            console.log("no Memberstack script found");
-            // chrome.browserAction.setBadgeText({text: 'OFF'});
-            // chrome.browserAction.setBadgeBackgroundColor({color: '#FF0000'});
+        // message from content.js
+        // msScriptFound
+        // msScripts
+        // msScriptVersions
+        // msIDs
+        // msAttributesFound
+        // msLinksFound
+        // msFormsFound
+
+        if (message.msScripts > 1 ) {
+            msScriptsFoundElmnt.classList.add("--error-text");
         }
-    }
+
+        if (!message.msScriptFound) {
+            msScriptsFoundElmnt.classList.add("--error-text");
+            msScriptsFoundElmnt.innerHTML = "No MS script found";
+        }
+
+        msScriptsFoundElmnt.innerHTML = message.msScripts;
+        msScriptVersionElmnt.innerHTML = message.msScriptVersions;
+        msScriptIDElmnt.innerHTML = message.msIDs;
+        msDataAttributesFoundElmnt.innerHTML = message.msAttributesFound;
+        msLinksFoundElmnt.innerHTML = message.msLinksFound;
+        msFormsFoundElmnt.innerHTML = message.msFormsFound;
+
+    };
+    chrome.runtime.onMessage.addListener(receiver);
 
 }
-

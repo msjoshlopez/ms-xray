@@ -1,0 +1,128 @@
+html {
+	min-width: 500px;
+}
+
+a {
+	color: #2aa8ff;
+}
+
+.--error-text {
+	color: red;
+}
+
+.button {
+	padding: 6px 12px;
+	border-radius: 5px;
+	box-shadow: 0 0 5px 0 hsla(0, 0%, 100%, .5), 0 9px 10px -5px rgba(45, 62, 80, .24);
+	-webkit-transition: background-color .2s ease, box-shadow .2s ease, color .2s ease;
+	transition: background-color .2s ease, box-shadow .2s ease, color .2s ease;
+	color: #fff;
+	font-size: 15px;
+	line-height: 2.3em;
+	font-weight: 700;
+	background-color: #2aa8ff;
+	text-decoration: none;
+}
+
+.button:hover {
+	background-color: #007ace;
+	box-shadow: 0 0 5px 0 hsla(0, 0%, 100%, .5);
+	color: #fff;
+}
+
+
+/* Style the tab */
+.tab {
+	overflow: hidden;
+	background-color: transparent;
+	display: flex;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+	background-color: inherit;
+	float: left;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	color: #2aa8ff;
+	border-bottom: 1px solid #ccc;
+	border-left: none;
+    border-top: none;
+    border-right: none;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #007ace;
+	color: #fff;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+	color: #fff;
+	border-bottom: 1px solid transparent;
+	background-color: #2aa8ff;
+}
+
+.tablinks {
+    flex-grow: 1;
+}
+
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+.tabcontent {
+	animation: fadeEffect 1s;
+	/* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.table-wrapper {
+	overflow-x: auto;
+	margin-bottom: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #d8e3f0;
+	border-radius: 3px;
+}
+
+table {
+	font-size: 12px;
+	width: 100%;
+}
+
+tr:nth-child(odd) {
+	background-color: #fafafa;
+}
+
+th {
+	background: #f5f8fd;
+	text-align: left;
+	padding: 5px;
+}
+
+td {
+	padding: 5px;
+}
+td a {
+	text-decoration: none;
+}

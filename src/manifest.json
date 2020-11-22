@@ -6,17 +6,13 @@
         "scripts": ["background.js"],
         "persistent": false
     },
-    // "content_scripts": [
-    //     {
-    //         "js": ["content.js"],
-    //         "matches": ["<all_urls>"]
-    //     }
-    // ],
-    "permissions": [
-        // "bookmarks"
-        // "tabs"
-        "activeTab"
+    "content_scripts": [
+        {
+            "js": ["content.js"],
+            "matches": ["<all_urls>"]
+        }
     ],
+    "permissions": [],
     "icons": {
         "16": "memberstack-icon.png",
         "48": "memberstack-icon.png",
