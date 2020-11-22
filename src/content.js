@@ -25,14 +25,14 @@ function msScriptCheck() {
     if (msScripts.length > 0) {
         for (const msScript of msScripts) {
             // get the version of memberstack script from the array of scripts on the page
-						const split = msScript.split("?");
-						if (split.length === 1) {
-							msScriptVersions.push("No platform specified")
-						} else {
-							msScriptVersions.push(split[split.length - 1]);
-							// remove all duplicate versions from the array
-							msScriptVersions = [...new Set(msScriptVersions)];
-						}
+            const split = msScript.split("?");
+            if (split.length === 1) {
+                msScriptVersions.push("No platform specified")
+            } else {
+                msScriptVersions.push(split[split.length - 1]);
+                // remove all duplicate versions from the array
+                msScriptVersions = [...new Set(msScriptVersions)];
+            }
         }
     }
 
@@ -61,7 +61,7 @@ function msScriptCheck() {
         msAttributesFound.push(msFormAttribute);
         console.log("msAttributesFound " + msFormAttribute);
         msFormsFound.push(msFormAttribute);
-				console.log("msFormsFound " + msFormAttribute);
+        console.log("msFormsFound " + msFormAttribute);
     };
 
     // get all the ms links on page
@@ -81,11 +81,19 @@ function msScriptCheck() {
     chrome.runtime.sendMessage(msScriptMessage);
 }
 
+function msHighlightLinks() {
+    console.log("highlight all links on page");
+}
+
 function msHighlightAttributes() {
     console.log("highlight all attributes on page");
 }
 
-chrome.runtime.onMessage.addListener(messageReceived);
+function msHighlightForms() {
+    for (const msFormAttribute of msFormAttributes) {
+        msFormAttribute.style.border = "thick solid #FDFF47";
+    };
+}
 
 // messages in popup.js
 // highlightLinks
@@ -99,19 +107,15 @@ function messageReceived(message, sender, sendResponse) {
     } else if (message.highlightLinks) {
         // TODO: highlight all the elements with memberstack links on the page
         console.log("highlight all ms links");
-        msHighlightAttributes();
+        msHighlightLinks();
     } else if (message.highlightAttributes) {
         // TODO: highlight all the elements with memberstack data attributes
         console.log("highlight all ms attributes");
+        msHighlightAttributes();
     } else if (message.highlightForms) {
         // TODO: hightlight all the memberstack form elements on the page
-				console.log("highlight all ms forms");
-				highlightForms()
+        console.log("highlight all ms forms");
+        msHighlightForms();
     }
 }
-
-function highlightForms() {
-	for (const msFormAttribute of msFormAttributes) {
-		msFormAttribute.style.border = "thick solid #FDFF47";
-	};
-}
+chrome.runtime.onMessage.addListener(messageReceived);
