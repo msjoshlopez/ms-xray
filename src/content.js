@@ -1,8 +1,8 @@
 console.log("MS Xray content.js has loaded");
 
 function msScriptCheck() {
-    let msScriptURL = "https://api.memberstack.io/static/memberstack.js";
-    let pageScripts = document.getElementsByTagName("script");
+    const msScriptURL = "https://api.memberstack.io/static/memberstack.js";
+    const pageScripts = document.getElementsByTagName("script");
     let msScriptFound = false;
     let msScripts = [];
     let msScriptVersions = [];
@@ -23,34 +23,38 @@ function msScriptCheck() {
     if (msScripts.length > 0) {
         for (msScript of msScripts) {
             // get the version of memberstack script from the array of scripts on the page
-            msScript = msScript.split("?");
-            msScriptVersions.push(msScript[msScript.length - 1]);
-            // remove all duplicate versions from the array
-            msScriptVersions = [...new Set(msScriptVersions)];
+						msScript = msScript.split("?");
+						if (msScript.length === 1) {
+							msScriptVersions.push("No platform specified")
+						} else {
+							msScriptVersions.push(msScript[msScript.length - 1]);
+							// remove all duplicate versions from the array
+							msScriptVersions = [...new Set(msScriptVersions)];
+						}
         }
     }
 
     // get all the ms attributes on page and add them to msAttributesFound to show count in popup
-    let msMemberAttributes = document.querySelectorAll('[data-ms-member]');
+    const msMemberAttributes = document.querySelectorAll('[data-ms-member]');
     for (msMemberAttribute of msMemberAttributes) {
         msAttributesFound.push(msMemberAttribute);
         console.log("msAttributesFound " + msMemberAttribute);
     };
 
-    let msContentAttributes = document.querySelectorAll('[data-ms-content]');
+    const msContentAttributes = document.querySelectorAll('[data-ms-content]');
     for (msContentAttribute of msContentAttributes) {
         msAttributesFound.push(msContentAttribute);
         console.log("msAttributesFound " + msContentAttribute);
     };
 
-    let msMembershipAttributes = document.querySelectorAll('[data-ms-membership]');
+    const msMembershipAttributes = document.querySelectorAll('[data-ms-membership]');
     for (msMembershipAttribute of msMembershipAttributes) {
         msAttributesFound.push(msMembershipAttribute);
         console.log("msAttributesFound " + msMembershipAttribute);
     };
 
     // get all the ms forms on page
-    let msFormAttributes = document.querySelectorAll('[data-ms-form]');
+    const msFormAttributes = document.querySelectorAll('[data-ms-form]');
     for (msFormAttribute of msFormAttributes) {
         msAttributesFound.push(msFormAttribute);
         console.log("msAttributesFound " + msFormAttribute);
@@ -61,7 +65,7 @@ function msScriptCheck() {
     // get all the ms links on page
     // #/ms
 
-    let msScriptMessage = {
+    const msScriptMessage = {
         msScriptFound: msScriptFound,
         msScripts: msScripts.length,
         msScriptVersions: msScriptVersions,
