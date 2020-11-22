@@ -1,0 +1,8 @@
+# Node
+node_modules
+
+# Misc
+.DS_Store
+.vscode
+.env**
+.cache
