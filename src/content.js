@@ -1,6 +1,8 @@
 console.log("MS Xray content.js has loaded");
 
+//declare global variables
 let msFormAttributes
+let msMemberAttributes
 
 function msScriptCheck() {
     const msScriptURL = "https://api.memberstack.io/static/memberstack.js";
@@ -37,29 +39,15 @@ function msScriptCheck() {
     }
 
     // get all the ms attributes on page and add them to msAttributesFound to show count in popup
-    const msMemberAttributes = document.querySelectorAll('[data-ms-member]');
+    msMemberAttributes = document.querySelectorAll('[data-ms-member],[data-ms-content],[data-ms-membership]');
     for (const msMemberAttribute of msMemberAttributes) {
         msAttributesFound.push(msMemberAttribute);
         console.log("msAttributesFound " + msMemberAttribute);
     };
 
-    const msContentAttributes = document.querySelectorAll('[data-ms-content]');
-    for (const msContentAttribute of msContentAttributes) {
-        msAttributesFound.push(msContentAttribute);
-        console.log("msAttributesFound " + msContentAttribute);
-    };
-
-    const msMembershipAttributes = document.querySelectorAll('[data-ms-membership]');
-    for (const msMembershipAttribute of msMembershipAttributes) {
-        msAttributesFound.push(msMembershipAttribute);
-        console.log("msAttributesFound " + msMembershipAttribute);
-    };
-
     // get all the ms forms on page
     msFormAttributes = document.querySelectorAll('[data-ms-form]');
     for (const msFormAttribute of msFormAttributes) {
-        msAttributesFound.push(msFormAttribute);
-        console.log("msAttributesFound " + msFormAttribute);
         msFormsFound.push(msFormAttribute);
         console.log("msFormsFound " + msFormAttribute);
     };
@@ -86,13 +74,15 @@ function msHighlightLinks() {
 }
 
 function msHighlightAttributes() {
-    console.log("todo: highlight all attributes on page");
+	for (const msAttribute of msMemberAttributes) {
+		msAttribute.style.border = "thick solid #FDFF47";
+	};
 }
 
 function msHighlightForms() {
-    for (const msFormAttribute of msFormAttributes) {
-        msFormAttribute.style.border = "thick solid #FDFF47";
-    };
+  for (const msFormAttribute of msFormAttributes) {
+    msFormAttribute.style.border = "thick solid #FDFF47";
+  };
 }
 
 // messages in popup.js
