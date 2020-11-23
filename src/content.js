@@ -56,7 +56,7 @@ function msScriptCheck() {
   }
 
   // get all the ms links on page
-  msLinks = document.querySelectorAll("[href*=ms]");
+  msLinks = document.querySelectorAll("[href*='#/ms']");
   for (const msLink of msLinks) {
     msLinksFound.push(msLink);
   }
