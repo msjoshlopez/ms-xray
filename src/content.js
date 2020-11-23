@@ -90,6 +90,14 @@ function msHighlightAttributes() {
 function msHighlightForms() {
   for (const msFormAttribute of msFormAttributes) {
     msFormAttribute.style.border = "thick solid #FDFF47";
+            // [data-ms-form]:before {
+        //     position: relative;
+        //     content: "data-ms-form='" attr(data-ms-form) "'";
+        //     font-size: 15px;
+        //     font-weight: bold;
+        //     top: -27px;
+        //     color: blue;
+        // }
   }
 }
 
