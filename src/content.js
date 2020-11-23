@@ -3,6 +3,7 @@ console.log("MS Xray content.js has loaded");
 //declare global variables
 let msFormAttributes;
 let msMemberAttributes;
+let msLinks;
 
 function msScriptCheck() {
   const msScriptURL = "https://api.memberstack.io/static/memberstack.js";
@@ -55,7 +56,10 @@ function msScriptCheck() {
   }
 
   // get all the ms links on page
-  // #/ms
+  msLinks = document.querySelectorAll("[href*=ms]");
+  for (const msLink of msLinks) {
+    msLinksFound.push(msLink);
+  }
 
   const msScriptMessage = {
     msScriptFound: msScriptFound,
@@ -72,7 +76,9 @@ function msScriptCheck() {
 }
 
 function msHighlightLinks() {
-  console.log("todo: highlight all links on page");
+  for (const msLink of msLinks) {
+    msLink.style.border = "thick solid #FDFF47";
+  }
 }
 
 function msHighlightAttributes() {
