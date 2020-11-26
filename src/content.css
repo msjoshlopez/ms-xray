@@ -1,0 +1,27 @@
+.msxray__form-highlight {
+    position: relative;
+    border: thick solid #007ACE !important;
+}
+.msxray__form-highlight:before {
+    position: absolute;
+    content: "data-ms-form='" attr(data-ms-form) "'";
+    font-size: 15px;
+    font-weight: bold;
+    top: -27px;
+    color: #007ACE;
+}
+
+.msxray__attribute-highlight {
+    border: thick solid #2AA8FF !important;
+    animation: background-pulsate 2s infinite;
+}
+
+.msxray__links-highlight {
+    border: thick solid #47ff6f !important;
+}
+
+@keyframes background-pulsate {
+    0%   { background-color: rgba(0, 122, 206, 0.5); }
+    50%  { background-color: rgba(0, 122, 206, 0); }
+    100% { background-color: rgba(0, 122, 206, 0.5); }
+}

@@ -48,9 +48,9 @@ window.onload = function () {
   let highlightAttributesElmnt = document.getElementById("highlightAttributes");
   let highlightLinksElmnt = document.getElementById("highlightLinks");
   let highlightFormsElmnt = document.getElementById("highlightForms");
-  let scanPageElmnt = document.getElementById("scanPage");
+  let rescanPageElmnt = document.getElementById("scanPage");
 
-  scanPageElmnt.onclick = msScanPage;
+  rescanPageElmnt.onclick = msScanPage;
   highlightAttributesElmnt.onclick = msHighlightAttributes;
   highlightLinksElmnt.onclick = msHighlightLinks;
   highlightFormsElmnt.onclick = msHighlightForms;
@@ -75,6 +75,8 @@ window.onload = function () {
     }
     chrome.tabs.query(queryParams, getTabs);
   }
+  // scan the page on load
+  msScanPage();
 
   function msHighlightAttributes() {
     function getTabs(tabs) {

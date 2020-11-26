@@ -5,6 +5,10 @@ let msFormAttributes;
 let msMemberAttributes;
 let msLinks;
 
+let msAttributesFound = [];
+let msLinksFound = [];
+let msFormsFound = [];
+
 function msScriptCheck() {
   const msScriptURL = "https://api.memberstack.io/static/memberstack.js";
   const pageScripts = document.getElementsByTagName("script");
@@ -12,9 +16,11 @@ function msScriptCheck() {
   let msScripts = [];
   let msScriptVersions = [];
   let msIDs = [];
-  let msAttributesFound = [];
-  let msLinksFound = [];
-  let msFormsFound = [];
+
+  //clear found elements
+  msAttributesFound = [];
+  msLinksFound = [];
+  msFormsFound = [];
 
   for (pageScript of pageScripts) {
     if (pageScript.src.indexOf(msScriptURL) != -1) {
@@ -52,7 +58,7 @@ function msScriptCheck() {
   msFormAttributes = document.querySelectorAll("[data-ms-form]");
   for (const msFormAttribute of msFormAttributes) {
     msFormsFound.push(msFormAttribute);
-    console.log("msFormsFound " + msFormAttribute);
+    // console.log("msFormsFound " + msFormAttribute);
   }
 
   // get all the ms links on page
@@ -76,28 +82,20 @@ function msScriptCheck() {
 }
 
 function msHighlightLinks() {
-  for (const msLink of msLinks) {
-    msLink.style.border = "thick solid #FDFF47";
+  for (const msLinkFound of msLinksFound) {
+    msLinkFound.classList.toggle("msxray__links-highlight");
   }
 }
 
 function msHighlightAttributes() {
-  for (const msAttribute of msMemberAttributes) {
-    msAttribute.style.border = "thick solid #FDFF47";
+  for (msAttributeFound of msAttributesFound) {
+    msAttributeFound.classList.toggle("msxray__attribute-highlight");
   }
 }
 
 function msHighlightForms() {
-  for (const msFormAttribute of msFormAttributes) {
-    msFormAttribute.style.border = "thick solid #FDFF47";
-            // [data-ms-form]:before {
-        //     position: relative;
-        //     content: "data-ms-form='" attr(data-ms-form) "'";
-        //     font-size: 15px;
-        //     font-weight: bold;
-        //     top: -27px;
-        //     color: blue;
-        // }
+  for (msFormFound of msFormsFound) {
+    msFormFound.classList.toggle("msxray__form-highlight");
   }
 }
 
